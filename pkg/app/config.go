@@ -49,6 +49,9 @@ func addConfigFlag(basename string, fs *pflag.FlagSet) {
 			viper.SetConfigName(basename)
 		}
 
+		// 直接点运行发现，这个会报错，找不到配置文件，然后将 configs 包下面的iam-apiserver.yaml复制了一份放在了项目根目录。
+		// 怎么知道放在根目录的？ 因为报错会提示，我在xxx下面没有找到xxx文件
+		// 那么问题来了，是在哪里配置的应该去这些地方找配置文件？
 		if err := viper.ReadInConfig(); err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "Error: failed to read configuration file(%s): %v\n", cfgFile, err)
 			os.Exit(1)
